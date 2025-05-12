@@ -1,0 +1,22 @@
+.button {
+    height: 40px;
+    width: 120px;
+    background-color: var(--color-primary-dark);
+    font-size: var(--font-size-base);
+    color: var(--color-background-base);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-small);
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: var(--color-button-hover);
+  }
+  .button:active {
+    background-color: var(--color-button-active);
+    /* denna används ikke ännu */
+  }
+  .button:disabled {
+    cursor: not-allowed;
+  }
