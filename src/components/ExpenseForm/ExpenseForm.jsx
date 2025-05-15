@@ -2,6 +2,8 @@
 import { useState } from "react";
 import styles from "./ExpenseForm.module.css"; 
 import Button from "../Button/Button";
+import { database } from "../../firebaseConfig";
+import {addDoc, collection} from "firebase/firestore"
 
 
 const ExpenseForm = () => {
@@ -22,6 +24,21 @@ const ExpenseForm = () => {
         setExpenseInput((prevData) => ({ ...prevData, [name]: value }));
         setError((prevError) => ({ ...prevError, [name]: "" }));
     };
+
+    const saveDatatoFirebase = async (expense) => {
+        try {
+            const docRef = await addDoc(
+                collection(database, "expense-collection"),
+                expense
+            );
+            console.log("expense has been added with the id", docRef.id);
+            
+        } catch (error) {
+            console.log(error.message, "failed to store the expense");
+            
+        }
+    };
+
 
     const validateInput = () => {
         const errorObj = {...error};
@@ -73,8 +90,29 @@ const ExpenseForm = () => {
             if(!formIsValid){
                 return;
             }
+
+            const expense = {
+                ...expenseInput,
+                amount: parseFloat(expenseInput.amount),
+                date: new Date(expenseInput.date),
+            };
+        
+            try {
+                await saveDatatoFirebase(expense);
+                console.log("Submitted:", expense);
+                setExpenseInput({
+                    category: "",
+                    title: "",
+                    amount: "",
+                    date: "",
+                });
+                setFormValidated("Expense has been added");
+            } catch (error) {
+                console.log("Submission failed:", error.message);
+            }
+
             setFormValidated("Expend has been added");
-    }
+    };
 
 
 
