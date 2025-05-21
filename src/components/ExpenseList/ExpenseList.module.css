@@ -1,0 +1,23 @@
+.listContainer {
+    padding: var(--spacing-medium);
+  }
+  
+  .listTitle {
+    font-size: var(--font-size-title);
+    margin-bottom: var(--spacing-small);
+  }
+  
+  .tableLike {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-small);
+  }
+  
+  .tableHeader {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    font-weight: bold;
+    padding: var(--spacing-small);
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-small);
+  }

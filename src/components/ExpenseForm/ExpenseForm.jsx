@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./ExpenseForm.module.css"; 
 import Button from "../Button/Button";
 import { database } from "../../firebaseConfig";
-import {addDoc, collection} from "firebase/firestore"
+import {addDoc, setDoc, collection, doc} from "firebase/firestore"
 
 
 const ExpenseForm = () => {
@@ -31,6 +31,10 @@ const ExpenseForm = () => {
                 collection(database, "expense-collection"),
                 expense
             );
+            await setDoc(doc(database, "expense-collection", docRef.id), {
+                ...expense,
+                id: docRef.id,
+              });
             console.log("expense has been added with the id", docRef.id);
             
         } catch (error) {

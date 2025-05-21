@@ -1,0 +1,19 @@
+.row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    background-color: var(--color-white);
+    padding: var(--spacing-small);
+    border-radius: var(--radius-small);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .cell {
+    font-size: var(--font-size-base);
+  }
+  
+  .actions {
+    display: flex;
+    gap: var(--spacing-small);
+    justify-content: center;
+  }
