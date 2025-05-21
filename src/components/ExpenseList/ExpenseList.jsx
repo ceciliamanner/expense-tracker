@@ -1,36 +1,9 @@
-import { useEffect, useState } from "react";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore"; // ✅ Bara det du behöver
 import { database } from "../../firebaseConfig";
 import ExpenseRow from "../ExpenseRow/ExpenseRow";
 import styles from "./ExpenseList.module.css";
 
-const ExpenseList = () => {
-  const [expenses, setExpenses] = useState([]);
-
-  useEffect(() => {
-    const expenseQuery = query(
-      collection(database, "expense-collection"),
-      orderBy("date", "desc")
-    );
-
-    const unsubscribe = onSnapshot(expenseQuery, (snapshot) => {
-      const expenseData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setExpenses(expenseData);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
+const ExpenseList = ({ expenses }) => {
   const handleEdit = (expense) => {
     console.log("Edit clicked:", expense);
     // TODO: Öppna modal eller inline-edit

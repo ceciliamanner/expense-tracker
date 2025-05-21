@@ -4,7 +4,7 @@
     min-width: 600px;
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 1.5rem auto;
     padding: 2rem;
     gap: var(--spacing-sm);
     border-radius: var(--radius-small);

@@ -1,0 +1,25 @@
+.totalContainer {
+    background-color: var(--color-primary);
+    width: 50%;
+    min-width: 600px;
+    margin: auto;
+    padding: 1rem;
+    border-radius: var(--radius-small);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-small);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .totalLabel {
+    font-size: var(--font-size-large);
+    color: var(--color-black);
+    font-weight: 600;
+  }
+  
+  .totalAmount {
+    font-size: var(--font-size-title);
+    color: var(--color-accent);
+    font-weight: bold;
+  }
