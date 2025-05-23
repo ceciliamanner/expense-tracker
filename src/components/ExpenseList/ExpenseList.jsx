@@ -21,6 +21,7 @@ const ExpenseList = ({ expenses }) => {
   return (
     <div className={styles.listContainer}>
       <h2 className={styles.listTitle}>Your Expenses</h2>
+      
       {expenses.length === 0 ? (
         <p>No expenses yet.</p>
       ) : (

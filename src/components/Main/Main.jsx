@@ -13,6 +13,24 @@ import ExpenseList from "../ExpenseList/ExpenseList";
 
 const Main = () => {
   const [expenses, setExpenses] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState("");
+
+  const handleMonthChange = (monthValue) => {
+    setSelectedMonth(monthValue);
+  };
+
+  const filteredExpenses = selectedMonth
+  ? expenses.filter((exp) => {
+      const date = exp.date?.toDate?.();
+      if (!date) return false;
+
+      const formatted = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+
+      return formatted === selectedMonth;
+    })
+  : expenses;
 
   useEffect(() => {
     const expenseQuery = query(
@@ -35,9 +53,12 @@ const Main = () => {
     <>
      <main className={styles.main}>
         <ExpenseForm />
-        <TotalExpense expenses={expenses}/>
-        <Filter />
-        <ExpenseList expenses={expenses}/>
+        <TotalExpense expenses={filteredExpenses}/>
+        <Filter
+          selectedMonth={selectedMonth}
+          onMonthChange={handleMonthChange}
+        />
+        <ExpenseList expenses={filteredExpenses}/>
         <EditModal /> 
      </main>
     </>
