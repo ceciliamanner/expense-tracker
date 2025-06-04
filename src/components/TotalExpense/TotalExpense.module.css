@@ -1,9 +1,9 @@
 .totalContainer {
     background-color: var(--color-primary);
-    width: 50%;
+    width: 100%;
     min-width: 600px;
     margin: auto;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: var(--radius-small);
     display: flex;
     justify-content: center;

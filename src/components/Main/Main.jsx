@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"; 
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 
 import styles from "./Main.module.css";
 import ExpenseForm from "../ExpenseForm/ExpenseForm";
 import Filter from "../Filter/Filter";
 import TotalExpense from "../TotalExpense/TotalExpense";
-import EditModal from "../EditModal/EditModal";
+import Modal from "../Modal/Modal";
 import ExpenseList from "../ExpenseList/ExpenseList";
 
 
@@ -14,6 +14,49 @@ import ExpenseList from "../ExpenseList/ExpenseList";
 const Main = () => {
   const [expenses, setExpenses] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState("edit");
+  const [selectedExpense, setSelectedExpense] = useState(null);
+
+  const handleEditClick = (expense) => {
+    setSelectedExpense(expense);
+    setModalMode("edit");
+    setModalOpen(true);
+  };
+  
+  const handleDeleteClick = (expense) => {
+    setSelectedExpense(expense);
+    setModalMode("delete");
+    setModalOpen(true);
+  };
+  
+  const handleEditSubmit = async (updatedExpense) => {
+    const expenseRef = doc(database, "expense-collection", updatedExpense.id);
+
+    try {
+      await updateDoc(expenseRef, {
+        title: updatedExpense.title,
+        amount: Number(updatedExpense.amount),
+      });
+      console.log("✅ Expense updated!");
+    } catch (error) {
+      console.error("❌ Error updating expense:", error);
+    }
+  };
+
+  // ❌ Ta bort från Firestore
+  const handleDeleteConfirm = async (id) => {
+    try {
+      await deleteDoc(doc(database, "expense-collection", id));
+      console.log("✅ Expense deleted!");
+    } catch (error) {
+      console.error("❌ Error deleting expense:", error);
+    }
+  };
+
+
+  
+
 
   const handleMonthChange = (monthValue) => {
     setSelectedMonth(monthValue);
@@ -52,17 +95,43 @@ const Main = () => {
   return (
     <>
      <main className={styles.main}>
-        <ExpenseForm />
-        <TotalExpense expenses={filteredExpenses}/>
-        <Filter
-          selectedMonth={selectedMonth}
-          onMonthChange={handleMonthChange}
-        />
-        <ExpenseList expenses={filteredExpenses}/>
-        <EditModal /> 
+
+        <div className={styles.formSection}>
+          <ExpenseForm />
+        </div>
+
+        <div className={styles.summarySection}>
+          <Filter
+            selectedMonth={selectedMonth}
+            onMonthChange={handleMonthChange}
+          />
+        </div>
+
+        <div className={styles.expenseListSection}>
+          <ExpenseList 
+            expenses={filteredExpenses}
+            onEditClick={handleEditClick}
+            onDeleteClick={handleDeleteClick}
+          />
+        </div>
+
+        {modalOpen && selectedExpense && (
+          <Modal
+            mode={modalMode}
+            expense={selectedExpense}
+            onClose={() => setModalOpen(false)}
+            onEditSubmit={handleEditSubmit}
+            onDeleteConfirm={handleDeleteConfirm}
+          />
+          
+        )}
+
+<       div className={styles.totalSummary}>
+          <TotalExpense expenses={filteredExpenses} />
+        </div>
      </main>
     </>
-  )
-}
+  );
+};
 
 export default Main

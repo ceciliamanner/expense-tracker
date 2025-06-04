@@ -1,8 +1,13 @@
 .main {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-secondary);
-  }
-  
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.totalSummary,
+.summarySection,
+.expenseListSection,
+.formSection {
+  margin-bottom: 2rem;
+  text-align: center;
+}

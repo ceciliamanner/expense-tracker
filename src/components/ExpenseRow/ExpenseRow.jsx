@@ -19,13 +19,14 @@ const ExpenseRow = ({ expense, onEdit, onDelete }) => {
       <div className={styles.cell}>{amount} kr</div>
       <div className={styles.cell}>{formattedDate}</div>
       <div className={styles.actions}>
-        <Button className="button--edit" onClick={() => onEdit(expense)} ariaLabel="Edit expense">
-          ✏️
-        </Button>
-        <Button className="button--delete" onClick={() => onDelete(expense.id)} ariaLabel="Delete expense">
-          🗑️
-        </Button>
-      </div>
+      
+      <Button className="button--edit" onClick={() => onEdit(expense)} ariaLabel="Edit expense">
+          Edit
+      </Button>
+      <Button className="button--delete" onClick={() => onDelete(expense.id)} ariaLabel="Delete expense">
+          Delete
+      </Button>
+    </div>
     </div>
   );
 };

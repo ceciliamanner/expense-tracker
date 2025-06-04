@@ -1,8 +1,8 @@
 import styles from "./TotalExpense.module.css";
 
-const TotalExpense = ({ expenses }) => { // ✅ ADDED prop
-  const total = expenses.reduce((sum, exp) => sum + (parseFloat(exp.amount) || 0), 0); // ✅ ADDED
-
+const TotalExpense = ({ expenses }) => { 
+  const total = expenses.reduce((sum, exp) => sum + (parseFloat(exp.amount) || 0), 0); 
+  
   return (
     <div className={styles.totalContainer}>
     <span className={styles.totalLabel}>Total Spent:</span>
