@@ -14,7 +14,7 @@ const ExpenseForm = () => {
         date: "", 
     }); 
 
-    const [error, setError] = useState(null);
+    const [error, setError] = useState({});
     const [formValidated, setFormValidated] = useState(null)
 
 
@@ -35,7 +35,6 @@ const ExpenseForm = () => {
                 ...expense,
                 id: docRef.id,
               });
-            console.log("expense has been added with the id", docRef.id);
             
         } catch (error) {
             console.log(error.message, "failed to store the expense");
@@ -103,7 +102,7 @@ const ExpenseForm = () => {
         
             try {
                 await saveDatatoFirebase(expense);
-                console.log("Submitted:", expense);
+           
                 setExpenseInput({
                     category: "",
                     title: "",
@@ -115,7 +114,6 @@ const ExpenseForm = () => {
                 console.log("Submission failed:", error.message);
             }
 
-            setFormValidated("Expend has been added");
     };
 
 

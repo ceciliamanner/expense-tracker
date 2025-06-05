@@ -13,28 +13,3 @@
   .button:hover {
     background-color: var(--color-button-hover);
   }
-  .button:active {
-    background-color: var(--color-button-active);
-    /* denna används ikke ännu */
-  }
-  .button:disabled {
-    cursor: not-allowed;
-  }
-
-  .button--edit {
-    background-color: var(--color-accent); /* mörkgrå */
-    color: var(--color-white);
-  }
-  
-  .button--edit:hover {
-    background-color: #374151; /* ännu mörkare grå */
-  }
-  
-  .button--delete {
-    background-color: var(--color-error); /* röd */
-    color: var(--color-white);
-  }
-  
-  .button--delete:hover {
-    background-color: #b91c1c; /* mörkare röd */
-  }

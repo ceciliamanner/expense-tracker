@@ -18,18 +18,21 @@ const Main = () => {
   const [modalMode, setModalMode] = useState("edit");
   const [selectedExpense, setSelectedExpense] = useState(null);
 
+
   const handleEditClick = (expense) => {
     setSelectedExpense(expense);
     setModalMode("edit");
     setModalOpen(true);
   };
   
+
   const handleDeleteClick = (expense) => {
     setSelectedExpense(expense);
     setModalMode("delete");
     setModalOpen(true);
   };
   
+
   const handleEditSubmit = async (updatedExpense) => {
     const expenseRef = doc(database, "expense-collection", updatedExpense.id);
 
@@ -37,25 +40,24 @@ const Main = () => {
       await updateDoc(expenseRef, {
         title: updatedExpense.title,
         amount: Number(updatedExpense.amount),
+        date: updatedExpense.date,
+        category: updatedExpense.category
       });
-      console.log("✅ Expense updated!");
+      
     } catch (error) {
-      console.error("❌ Error updating expense:", error);
+      console.error("Error updating expense:", error);
     }
   };
 
-  // ❌ Ta bort från Firestore
+
   const handleDeleteConfirm = async (id) => {
     try {
       await deleteDoc(doc(database, "expense-collection", id));
-      console.log("✅ Expense deleted!");
+   
     } catch (error) {
-      console.error("❌ Error deleting expense:", error);
+      console.error("Error deleting expense:", error);
     }
   };
-
-
-  
 
 
   const handleMonthChange = (monthValue) => {
@@ -75,6 +77,7 @@ const Main = () => {
     })
   : expenses;
 
+// Realtime listener for expense collection
   useEffect(() => {
     const expenseQuery = query(
       collection(database, "expense-collection"),
@@ -86,7 +89,7 @@ const Main = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setExpenses(expenseData); // ✅ ADDED
+      setExpenses(expenseData); 
     });
 
     return () => unsubscribe();
